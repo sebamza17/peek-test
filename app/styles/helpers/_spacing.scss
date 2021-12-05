@@ -1,0 +1,16 @@
+@import "../variables";
+
+$spaces: ($sp1, $sp2, $sp3, $sp4, $sp5, $sp6, $sp7, $sp8);
+$sides: (top, bottom, left, right);
+
+@each $space in $spaces {
+  @each $side in $sides {
+    .m-#{$side}-#{$space} {
+      margin-#{$side}: #{$space} !important;
+    }
+
+    .p-#{$side}-#{$space} {
+      padding-#{$side}: #{$space} !important;
+    }
+  }
+}

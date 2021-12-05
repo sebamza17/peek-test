@@ -1,0 +1,58 @@
+@import "../variables";
+
+.event-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+}
+
+.event-modal-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.event-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 700px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: $sp4;
+
+  .event-modal__title {
+    border-bottom: 1px solid $color-silver;
+    color: $color-night;
+    font-weight: 500;
+    margin-bottom: $sp2;
+    padding-bottom: $sp2;
+  }
+
+  .event-modal__form {
+
+  }
+
+  .event-modal__actions {
+    margin-top: $sp8;
+    display: flex;
+    align-items: center;
+
+    .sm-button-container {
+      &:first-of-type {
+        margin-right: $sp4;
+      }
+
+      &:last-of-type {
+        margin-left: $sp4;
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<div class="calendar-day">
+  <div class="calendar-day__time-block">
+    {{#each this.timeSlots as |slot|}}
+      <CalendarDay::TimeSlot
+        @size={{this.timeSlotSize}}
+        @slot={{slot}}
+      />
+    {{/each}}
+  </div>
+
+  <div class="calendar-day__event-container">
+    {{#each this.timeSlots}}
+      <CalendarDay::TimeLine
+        @size={{this.timeSlotSize}}
+      />
+    {{/each}}
+
+    {{#each this.events as |event|}}
+      <CalendarDay::Event
+        @eventList={{this.events}}
+        @hourDivider={{this.hourDivider}}
+        @hourSize={{this.hourSize}}
+        @event={{event}}
+        @onClick={{action @onEventUpdate}}
+      />
+    {{/each}}
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="sm-event-container"
+     style="
+       top: {{this.verticalPosition}};
+       left: {{this.horizontalPosition}};
+       width: {{this.width}};
+       height: {{this.height}};
+       "
+  {{action @onClick this.event}}>
+  <div class="sm-event">
+    <div class="sm-event__name">
+      {{this.event.activityName}}
+    </div>
+
+    <div class="sm-event__duration">
+      {{this.event.duration}} minutes
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+$time-block-width: 100px;
+
+.calendar-day-container {
+  width: 100%;
+}
+
+.calendar-day {
+  display: flex;
+
+  .calendar-day__time-block {
+    width: 10%;
+    max-width: $time-block-width;
+
+    .calendar-day__time-block__slot {
+      position: relative;
+      font-size: 13px;
+      font-family: Courier, monospace;
+      text-align: right;
+      color: $color-silver;
+
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: $color-silver;
+      }
+
+      &:nth-child(4n-7) {
+        color: $color-storm;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .calendar-day__event-container {
+    position: relative;
+    width: 90%;
+    max-width: calc(100% - #{$time-block-width});
+    background-color: $color-white;
+  }
+
+  .calendar-day__time-line {
+    position: relative;
+    width: 100%;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: $color-silver;
+    }
+  }
+}

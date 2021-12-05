@@ -1,0 +1,36 @@
+.sm-event-container {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  cursor: pointer;
+  z-index: 0;
+  display: flex;
+
+  &:hover {
+    .sm-event {
+      background-color: $color-silver;
+      transform: translateY(-4px);
+      z-index: 1;
+    }
+  }
+}
+
+.sm-event {
+  background-color: $color-whitelilac;
+  border: 1px solid $color-blue;
+  padding: $sp1 $sp2;
+  border-radius: 4px;
+  transition: background-color .2s ease, transform .2s ease .1s;
+  width: 100%;
+
+  .sm-event__name {
+    font-size: 13px;
+    color: $color-night;
+    font-weight: bold;
+  }
+
+  .sm-event__duration {
+    color: $color-storm;
+    font-size: 10px;
+  }
+}

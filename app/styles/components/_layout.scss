@@ -1,0 +1,9 @@
+.sm-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  &.sm-container_flex {
+    display: flex;
+  }
+}

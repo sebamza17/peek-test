@@ -1,0 +1,20 @@
+@import "components/all";
+@import "helpers/all";
+@import "templates/all";
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  color: $color-storm;
+  font-family: Helvetica, sans-serif;
+}
+
+.welcome-page {
+  text-align: center;
+}

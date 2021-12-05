@@ -1,0 +1,44 @@
+@import "../variables";
+
+.sm-input-container {
+  &.sm-input-container_error {
+    .sm-input input {
+      border-color: $color-error;
+    }
+  }
+}
+
+.sm-input {
+  position: relative;
+  margin-bottom: $sp3;
+
+  label {
+    font-size: 15px;
+    font-weight: 400;
+    color: $color-night;
+
+    input {
+      color: $color-night;
+      border: 1px solid $color-silver;
+      font-size: inherit;
+      font-weight: 200;
+      margin-top: $sp1;
+      padding: $sp2;
+      transition: border-color .2s ease;
+      width: 100%;
+
+      &:focus {
+        border-color: $color-night;
+        outline: none;
+      }
+    }
+  }
+
+  .sm-input__error {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: $color-error;
+    font-size: 10px;
+  }
+}

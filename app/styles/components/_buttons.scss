@@ -1,0 +1,38 @@
+@import "../variables";
+
+.sm-button-container {
+  &.sm-button-container {
+    display: block;
+    width: 100%;
+
+    .sm-button {
+      width: 100%;
+    }
+  }
+
+  &.sm-button-container_alternative {
+    .sm-button {
+      background-color: $color-white;
+      color: $color-black;
+      border-color: $color-black;
+
+      &:hover {
+        color: $color-error;
+      }
+    }
+  }
+}
+
+.sm-button {
+  background-color: $color-night;
+  color: $color-white;
+  cursor: pointer;
+  display: inline-block;
+  padding: $sp4;
+  text-align: center;
+  border: 1px solid transparent;
+
+  &:hover {
+    color: $color-blue;
+  }
+}

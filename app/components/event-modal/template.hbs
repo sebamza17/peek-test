@@ -1,0 +1,75 @@
+<div class="event-modal-overlay" {{action onClose}}></div>
+
+<div class="event-modal">
+  <div class="event-modal__title">
+    {{#if this.isNew}}
+      Create New Event
+    {{else}}
+      Update Existing Event
+    {{/if}}
+  </div>
+
+  <div class="event-modal__form">
+    <SmInput
+      data-test-input="activity-name"
+      @placeholder="Enter an activity name"
+      @label="Activity Name"
+      @value={{this.event.activityName}}
+      @error={{this.errors.activityName}}
+    />
+
+    <SmInput
+      data-test-input="date"
+      @placeholder="Select a Date"
+      @label="Date"
+      @error={{this.errors.date}}>
+      <PikadayInput
+        @format={{"MM/DD/YYYY"}}
+        @value={{this.event.date}}
+        @onSelection={{action (mut this.event.date)}}
+      />
+    </SmInput>
+
+    <SmInput
+      data-test-input="start-time"
+      @placeholder="Enter a start time"
+      @label="Start time"
+      @error={{this.errors.startTime}}>
+      <EmberTimepicker
+        @onChange={{action 'setStartTime'}}
+        @options={{this.startTimepickerOptions}}
+      />
+    </SmInput>
+
+    <SmInput
+      data-test-input="end-time"
+      @placeholder="Enter an end time"
+      @label="End time"
+      @value={{this.event.endTime}}
+      @error={{this.errors.endTime}}>
+      <EmberTimepicker
+        @onChange={{action 'setEndTime'}}
+        @options={{this.endTimepickerOptions}}
+      />
+    </SmInput>
+  </div>
+
+  <div class="event-modal__actions">
+    {{#unless this.isNew}}
+      <SmButton
+        data-test-button="delete"
+        @label="Delete Event"
+        @block={{true}}
+        @isAlternative={{true}}
+        @onClick={{action 'delete'}}
+      />
+    {{/unless}}
+
+    <SmButton
+      data-test-button="save"
+      @label={{if this.isNew "Create Event" "Save Changes"}}
+      @block={{true}}
+      @onClick={{action 'save'}}
+    />
+  </div>
+</div>

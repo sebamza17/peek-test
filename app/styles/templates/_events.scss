@@ -1,0 +1,23 @@
+$title-height: 45px;
+$calendar-width: 75%;
+
+.events-container {
+  .page-title {
+    margin-bottom: $sp4;
+  }
+}
+
+.events {
+  .events__calendar-container {
+    display: flex;
+    max-height: calc(100vh - #{$title-height} - 100px);
+    overflow: auto;
+    width: 75%;
+  }
+
+  .events__sidebar-container {
+    width: 100% - $calendar-width;
+    padding-left: $sp4;
+    padding-right: $sp4;
+  }
+}

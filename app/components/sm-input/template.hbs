@@ -1,0 +1,21 @@
+<div class="sm-input">
+  <label>
+    {{@label}}
+
+    {{#if hasBlock}}
+      {{yield}}
+    {{else}}
+      <Input
+        @type={{@type}}
+        @placeholder={{@placeholder}}
+        @value={{@value}}
+      />
+    {{/if}}
+  </label>
+
+  {{#if @error}}
+    <div class="sm-input__error">
+      {{@error}}
+    </div>
+  {{/if}}
+</div>

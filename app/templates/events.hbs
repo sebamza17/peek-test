@@ -1,0 +1,47 @@
+{{page-title "Events"}}
+
+<div class="events-container">
+  <div class="events">
+    <div class="sm-container">
+      <PageTitle @title="Events"/>
+    </div>
+
+    <div class="sm-container sm-container_flex">
+      <div class="events__calendar-container">
+        <CalendarDay
+          @hourDivider={{this.hourDivider}}
+          @hourSize={{this.hourSize}}
+          @date={{this.selectedDate}}
+          @events={{this.eventsToDisplay}}
+          @onEventUpdate={{action 'updateEvent'}}
+        />
+      </div>
+
+      <div class="events__sidebar-container">
+        <div class="events__mini-calendar">
+          <PikadayInputless
+            @onSelection={{action 'changeCalendarDate'}}
+          />
+        </div>
+
+        <div class="m-top-24px">
+          <SmButton
+            data-test-button="add-event"
+            @label="Add Event"
+            @block={{true}}
+            @onClick={{action 'addEvent'}}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#if this.eventModalOpen}}
+  <EventModal
+    @event={{this.selectedEvent}}
+    @onClose={{action 'closeEventModal'}}
+    @onSave={{action 'saveEvent'}}
+    @onDelete={{action 'deleteEvent'}}
+  />
+{{/if}}
