@@ -21,7 +21,7 @@ export default Controller.extend({
     set(this, 'selectedDate', new Date());
   },
 
-  eventsToDisplay: computed('eventList.[]', 'selectedDate', function () {
+  eventsToDisplay: computed('eventList.@each.{date,startTime,endTime}', 'selectedDate', function() {
     return this.eventList.filter(event => {
       return !event.isCancelled && event.isSameAsDate(this.selectedDate);
     });
@@ -30,7 +30,6 @@ export default Controller.extend({
   actions: {
     changeCalendarDate(date) {
       set(this, 'selectedDate', date);
-      console.warn('this.eventList', this.eventList);
     },
 
     openEventModal() {
@@ -43,8 +42,13 @@ export default Controller.extend({
     },
 
     addEvent() {
+      const date = this.getRoundedDate(15, this.selectedDate);
+      const defaultEndTime = new Date(date.getTime() + 30 * 60000);
+
       const event = Event.create({
         date: this.selectedDate,
+        startTime: date,
+        endTime: defaultEndTime
       });
 
       set(this, 'selectedEvent', event);
@@ -64,6 +68,13 @@ export default Controller.extend({
     deleteEvent(event) {
       this.eventList.removeObject(event);
       this.send('closeEventModal');
-    },
+    }
   },
+
+  getRoundedDate(minutes, d = new Date()) {
+    let ms = 1000 * 60 * minutes; // convert minutes to ms
+    let roundedDate = new Date(Math.round(d.getTime() / ms) * ms);
+
+    return roundedDate;
+  }
 });

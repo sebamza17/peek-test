@@ -22,7 +22,7 @@ export default Component.extend({
     const quarterHours = ['00', '15', '30', '45'];
     const times = [];
 
-    for (let i = 0; i < 24; i++) {
+    for (let i = 6; i < 24; i++) {
       for (let j = 0; j < 4; j++) {
         let time = i + ':' + quarterHours[j];
 

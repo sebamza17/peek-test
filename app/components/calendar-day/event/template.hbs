@@ -1,11 +1,11 @@
-<div class="sm-event-container"
-     style="
-       top: {{this.verticalPosition}};
-       left: {{this.horizontalPosition}};
-       width: {{this.width}};
-       height: {{this.height}};
-       "
-  {{action @onClick this.event}}>
+<div {{action @onClick this.event}}
+  class="sm-event-container {{if hasShortDuration 'sm-event-container_small'}}"
+  style="
+    top: {{this.verticalPosition}};
+    left: {{this.horizontalPosition}};
+    width: {{this.width}};
+    height: {{this.height}};
+    ">
   <div class="sm-event">
     <div class="sm-event__name">
       {{this.event.activityName}}

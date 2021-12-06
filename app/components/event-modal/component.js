@@ -1,7 +1,7 @@
 import Component from '@ember/component';
-import { get, set } from '@ember/object';
+import { computed, get, set } from '@ember/object';
 import { alias } from '@ember/object/computed';
-import { EventStatus } from '../../utils/event';
+import Event, { EventStatus } from '../../utils/event';
 
 export default Component.extend({
   classNames: ['event-modal-container'],
@@ -9,27 +9,52 @@ export default Component.extend({
   // local vars
   eventErrors: [],
 
-  startTimepickerOptions: {
-    timeFormat: 'HH:mm',
-    defaultTime: '09:00',
-    interval: 15,
-    zindex: 10000,
-  },
-
-  endTimepickerOptions: {
-    timeFormat: 'HH:mm',
-    defaultTime: '09:30',
-    interval: 15,
-    zindex: 10000,
-  },
-
   // params
   event: undefined,
-  isNew: alias('event.isNew'),
+  isNew: alias('eventChangeset.isNew'),
+
+  eventChangeset: computed('event', function() {
+    const changeset = Event.create(this.event.getData());
+    return changeset;
+  }),
+
+  startTimepickerOptions: computed('eventChangeset.{date,startTime,endTime}', function() {
+    const startHour = new Date(this.eventChangeset.startTime);
+    const startMinutes = new Date(this.eventChangeset.startTime);
+
+    return {
+      minHour: 6,
+      minMinutes: 0,
+      maxHour: 23,
+      maxMinutes: 59,
+      dynamic: true,
+      timeFormat: 'HH:mm',
+      defaultTime: `${startHour.getHours()}:${startMinutes.getMinutes()}`,
+      interval: 15,
+      zindex: 10000
+    };
+  }),
+
+  endTimepickerOptions: computed('eventChangeset.{startTime,endTime}', function() {
+    const endStartHour = new Date(this.eventChangeset.endTime);
+    const endStartMinutes = new Date(this.eventChangeset.endTime);
+
+    return {
+      minHour: 6,
+      minMinutes: 0,
+      maxHour: 23,
+      maxMinutes: 59,
+      dynamic: true,
+      timeFormat: 'HH:mm',
+      defaultTime: `${endStartHour.getHours()}:${endStartMinutes.getMinutes()}`,
+      interval: 15,
+      zindex: 10000
+    };
+  }),
 
   actions: {
     setStartTime(time) {
-      set(this, 'event.startTime', time);
+      set(this, 'eventChangeset.startTime', time);
       const nearestEndTime = new Date(time.getTime() + 30 * 60000);
 
       // TODO trying to set a new starting time for endTime timepicker
@@ -44,21 +69,26 @@ export default Component.extend({
     },
 
     setEndTime(time) {
-      set(this, 'event.endTime', time);
+      set(this, 'eventChangeset.endTime', time);
     },
 
     save() {
-      const eventErrors = Object.values(get(this, 'event.errors')).filter(Boolean);
+      const eventErrors = Object.values(get(this, 'eventChangeset.errors')).filter(Boolean);
 
       if (eventErrors && eventErrors.length > 0) {
-        set(this, 'errors', get(this, 'event.errors'));
+        set(this, 'errors', get(this, 'eventChangeset.errors'));
         return;
       }
 
-      set(this, 'event.status', EventStatus.created);
-
       if (this.onSave) {
-        this.onSave(this.event);
+        this.event.setDataFromChangeset(this.eventChangeset);
+
+        if (this.event.isNew) {
+          set(this, 'event.status', EventStatus.created);
+          this.onSave(this.event);
+        } else {
+          this.onClose();
+        }
       }
     },
 

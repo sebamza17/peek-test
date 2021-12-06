@@ -13,6 +13,17 @@
       z-index: 1;
     }
   }
+
+  &.sm-event-container_small {
+    .sm-event {
+      display: flex;
+      align-items: center;
+
+      .sm-event__duration {
+        margin-left: $sp3;
+      }
+    }
+  }
 }
 
 .sm-event {

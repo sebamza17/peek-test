@@ -2,11 +2,17 @@
 
 <div class="event-modal">
   <div class="event-modal__title">
-    {{#if this.isNew}}
-      Create New Event
-    {{else}}
-      Update Existing Event
-    {{/if}}
+    <div>
+      {{#if this.isNew}}
+        Create New Event
+      {{else}}
+        Update Existing Event
+      {{/if}}
+    </div>
+
+    <a {{action onClose}}>
+      X
+    </a>
   </div>
 
   <div class="event-modal__form">
@@ -14,8 +20,17 @@
       data-test-input="activity-name"
       @placeholder="Enter an activity name"
       @label="Activity Name"
-      @value={{this.event.activityName}}
+      @value={{this.eventChangeset.activityName}}
       @error={{this.errors.activityName}}
+    />
+
+    <SmInput
+      data-test-input="guests"
+      @placeholder="How many people can attend?"
+      @label="Guests number"
+      @type="number"
+      @value={{this.eventChangeset.numMaxGuests}}
+      @error={{this.errors.numMaxGuests}}
     />
 
     <SmInput
@@ -24,9 +39,9 @@
       @label="Date"
       @error={{this.errors.date}}>
       <PikadayInput
-        @format={{"MM/DD/YYYY"}}
-        @value={{this.event.date}}
-        @onSelection={{action (mut this.event.date)}}
+        @format={{'MM/DD/YYYY'}}
+        @value={{this.eventChangeset.date}}
+        @onSelection={{action (mut this.eventChangeset.date)}}
       />
     </SmInput>
 
@@ -45,7 +60,7 @@
       data-test-input="end-time"
       @placeholder="Enter an end time"
       @label="End time"
-      @value={{this.event.endTime}}
+      @value={{this.eventChangeset.endTime}}
       @error={{this.errors.endTime}}>
       <EmberTimepicker
         @onChange={{action 'setEndTime'}}
@@ -67,7 +82,7 @@
 
     <SmButton
       data-test-button="save"
-      @label={{if this.isNew "Create Event" "Save Changes"}}
+      @label={{if this.isNew 'Create Event' 'Save Changes'}}
       @block={{true}}
       @onClick={{action 'save'}}
     />

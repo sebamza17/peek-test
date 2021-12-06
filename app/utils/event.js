@@ -20,9 +20,9 @@ export const EventStatus = {
 export default EmberObject.extend({
   activityName: undefined,
   date: undefined,
-  startTime: undefined,
-  endTime: undefined,
-  numMaxGuests: 0,
+  startTime: new Date(),
+  endTime: new Date(),
+  numMaxGuests: 2,
   status: 'new',
 
   isNew: equal('status', EventStatus.new),
@@ -59,6 +59,11 @@ export default EmberObject.extend({
       errors.endTime = 'Required';
     }
 
+    if (this.startTime > this.endTime) {
+      errors.startTime = 'Start time must be before end time';
+      errors.endTime = 'End time must be after start time';
+    }
+
     return errors;
   }),
 
@@ -68,5 +73,25 @@ export default EmberObject.extend({
       this.date.getMonth() === date.getMonth() &&
       this.date.getDate() === date.getDate()
     );
+  },
+
+  getData() {
+    return {
+      activityName: this.activityName,
+      date: this.date,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      numMaxGuests: this.numMaxGuests,
+      status: this.status,
+    };
+  },
+
+  setDataFromChangeset(changeset) {
+    this.set('activityName', changeset.activityName);
+    this.set('date', changeset.date);
+    this.set('startTime', changeset.startTime);
+    this.set('endTime', changeset.endTime);
+    this.set('numMaxGuests', changeset.numMaxGuests);
+    this.set('status', changeset.status);
   },
 });

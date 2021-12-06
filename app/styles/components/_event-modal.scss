@@ -31,9 +31,19 @@
   .event-modal__title {
     border-bottom: 1px solid $color-silver;
     color: $color-night;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-weight: 500;
     margin-bottom: $sp2;
     padding-bottom: $sp2;
+
+    a {
+      padding: $sp1 $sp2;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
   }
 
   .event-modal__form {
